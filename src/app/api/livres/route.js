@@ -27,25 +27,24 @@ export async function POST(req) {
   }
 }
 
-
 export async function GET() {
   try {
     await connectDB();
     const livres = await Livre.find({}, null, {
       sort: {
-        '_id': -
-          1
-      }
-    }).populate('auteurs').populate('specialite').populate('maised')
+        _id: -1,
+      },
+    })
+      .populate("auteurs")
+      .populate("specialite")
+      .populate("maised");
 
     const nbLivres = await Livre.countDocuments({});
-    return NextResponse.json({
-      nbLivres,
+    return NextResponse.json(
+      // nbLivres,
       livres
-    } );
+    );
   } catch (error) {
-  return NextResponse.json({ error : error });
+    return NextResponse.json({ error: error });
   }
-  }
-
-  
+}
