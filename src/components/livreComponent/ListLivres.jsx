@@ -2,7 +2,30 @@
 import { useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 import { Box } from "@mui/material";
+import Button from "react-bootstrap/Button";
+import { useRouter } from "next/navigation";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { deleteLivre } from "@/services/livreService";
+
+
+import Link from 'next/link';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
 const ListLivres = ({ livres }) => {
+  const router = useRouter();
+  const deletelivre = (id) => {
+    if (window.confirm("supprimer Livre O/N")) {
+      deleteLivre(id)
+        .then((res) => {
+          console.log(res);
+          router.refresh();
+        })
+
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
   const columns = useMemo(
     () => [
       {
@@ -69,16 +92,49 @@ const ListLivres = ({ livres }) => {
 
         size: 50,
       },
+      {
+        accessorKey: '_id',
+        header: 'actions',
+        size: 50,
+        Cell: ({ cell, row }) => (
+        <div >
+        <Button
+        onClick={(e) => {
+        deletelivre(cell.row.original._id,e);
+        }}
+        variant="danger"
+        size="md"
+        className="text-danger btn-link delete"
+        >
+        <DeleteForeverIcon />
+        </Button>
+        </div>
+        ),
+        },
     ],
     [livres]
   );
   return (
+
     <div>
-          {/* <MaterialReactTable columns={columns} data={livres} />; */}
-          
-    {livres && <MaterialReactTable columns={columns} data={livres} />}
-    {/* {!livres && <p>Loading data...</p>} */}
-  
+      <Button
+variant='dark'
+size="sm"
+>
+<Link
+href="/admin/livres/ajoutLivre"
+style={{
+textDecoration: 'none',
+color: 'pink',
+fontSize: 14,
+}}
+>
+<AddCircleOutlineIcon/> Nouveau
+</Link>
+</Button>
+      <MaterialReactTable columns={columns} data={livres} />;
+      {/* {livres && <MaterialReactTable columns={columns} data={livres} />} */}
+      {/* {!livres && <p>Loading data...</p>} */}
     </div>
   );
 };

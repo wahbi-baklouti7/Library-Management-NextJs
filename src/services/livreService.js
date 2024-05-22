@@ -2,17 +2,23 @@ const LIVRE_API = "/livres/";
 
 export const fetchLivres = async () => {
 
+  try{
     const res = await fetch(
       process.env.NEXT_PUBLIC_API_URL + LIVRE_API,
       { cache: "no-store" },
-      {
-        method: "GET",
-      }
     );
   const response = await res.json();
-  console.log("data Service Livres !!!!!!!!!!!!!!!!!!!!!!!!!!: "+response)
+  // console.log("data Service Livres !!!!!!!!!!!!!!!!!!!!!!!!!!: "+response.data)
     return response;
-
+  }
+  catch (error) {
+    if (error.name === "SyntaxError") {
+      console.error("Error parsing JSON:", error);
+      // Handle the error gracefully, such as displaying an error message to the user
+    } else {
+      console.error("Error fetching data:", error);
+    }
+  }
 };
 // export const fetchLivres = async () => {
 //   try {
