@@ -38,10 +38,14 @@ export async function GET() {
       await connectDB();
       const editeurs = await Editeur.find();
       const nbEditeurs = await Editeur.countDocuments();
-      return NextResponse.json({
-        nbEditeurs,
-        editeurs,
-      });
+      // return NextResponse.json({
+      //   nbEditeurs,
+      //   editeurs,
+      // });
+      return NextResponse.json(
+       
+        editeurs
+      );
     } catch (e) {
       return NextResponse.json({ error });
     }

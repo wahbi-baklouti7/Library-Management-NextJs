@@ -6,19 +6,21 @@ import { fetchSpecialites } from "@/services/specialitieService"
 
 const getEditeurs = async () => {
     
-    const editeurs = await fetchEditeurs() ;
-    return editeurs;
+    const data = await fetchEditeurs();
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+data)
+
+    return data;
 }
 
 
 const getAuteurs = async () => {
-    const auteurs = await fetchAuteurs()
-    return auteurs;
+    const data = await fetchAuteurs()
+    return data;
 }
 
 const getSpecialite = async () => {
-    const specialite = await fetchSpecialites();
-    return specialite;
+    const data = await fetchSpecialites();
+    return data;
 }
 
 

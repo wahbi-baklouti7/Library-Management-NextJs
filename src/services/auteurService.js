@@ -12,7 +12,7 @@ export const fetchAuteurs = async () => {
 
     );
     const response = await res.json()
-    console.log(response)
+    // console.log(response)
     return response 
     } catch (error) {
         console.log(error)

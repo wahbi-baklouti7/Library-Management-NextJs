@@ -1,3 +1,5 @@
+import { ConstructionOutlined } from "@mui/icons-material";
+
 const EDITEUR_API = "/editeurs/";
 
 
@@ -5,7 +7,9 @@ export const fetchEditeurs = async () => {
 
     try {
         const res = await fetch(process.env.NEXT_PUBLIC_API_URL + EDITEUR_API, { 'cache': 'no-store' });
-    const response = await  res.json()
+        const response = await res.json()
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+response.editeurs)
+
     return response 
     } catch (e) {
         console.log(e)
@@ -24,7 +28,7 @@ export const fetchEditeurById = async (editeur)=>{
 
     )
 
-    const response = await  res.json()
+    const response = await res.json()
     return response
     
 }

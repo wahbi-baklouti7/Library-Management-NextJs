@@ -33,10 +33,14 @@ export async function GET() {
     await connectDB();
     const auteurs = await Auteur.find();
     const nbAuteurs = await Auteur.countDocuments();
-    return NextResponse.json({
-      nbAuteurs,
-      auteurs,
-    });
+    // return NextResponse.json({
+    //   nbAuteurs,
+    //   auteurs,
+    // });
+    return NextResponse.json(
+
+      auteurs
+    );
   } catch (e) {
     return NextResponse.json({ error });
   }
