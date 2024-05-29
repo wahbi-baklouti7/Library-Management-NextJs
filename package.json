@@ -34,6 +34,7 @@
     "react-dom": "^18",
     "react-filepond": "^7.1.2",
     "react-pro-sidebar": "^1.1.0",
+    "stripe": "^15.8.0",
     "use-shopping-cart": "^3.2.0"
   },
   "devDependencies": {

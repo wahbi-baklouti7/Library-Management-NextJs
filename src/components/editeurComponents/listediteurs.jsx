@@ -4,9 +4,9 @@ import { MaterialReactTable } from "material-react-table";
 import Button from "react-bootstrap/Button";
 import { deleteEditeur } from "@/services/editeurService";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import NewEditeurComponent from "./NewEditeurComponent";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import UpdateEditeurComponent from "./UpdateEditeurComponent";
+import Updateediteur from "./UpdateEditeurComponent";
+import Insertediteur from "./newEditeurComponent";
 
 const Listediteurs = ({ editeurs }) => {
   const [LesEditeurs, setLesEditeurs] = useState(editeurs);
@@ -80,13 +80,13 @@ const Listediteurs = ({ editeurs }) => {
   );
   return (
     <div>
-      <NewEditeurComponent
+      <Insertediteur
         LesEditeurs={LesEditeurs}
         setLesEditeurs={setLesEditeurs}
       />
       <MaterialReactTable columns={columns} data={LesEditeurs} />
       {show ? (
-        <UpdateEditeurComponent
+        <Updateediteur
           ed={editeur}
           LesEditeurs={LesEditeurs}
           setLesEditeurs={setLesEditeurs}
