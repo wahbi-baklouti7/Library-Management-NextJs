@@ -174,6 +174,7 @@ const NewLivre = ({ LesEditeurs, lesSpecialites, lesAuteurs }) => {
                             {spec.nomspecialite}
                           </option>
                         ))}
+                      
                     </Form.Control>
                     <Form.Control.Feedback type="invalid">
                       Spécialité Incorrecte

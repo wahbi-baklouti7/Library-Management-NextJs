@@ -1,24 +1,17 @@
 import { HttpStatusCode } from "axios";
 import connectDB from "@/lib/connectDB";
-import Auteur from "@/models/Auteur";
+
 import { NextResponse } from "next/server";
+import Auteur from "@/app/models/Auteur";
 
 export async function POST(req) {
   try {
     await connectDB();
     const body = await req.json();
-    if (body.nomauteur) {
-      const auteur = await Auteur.create(body);
-      return NextResponse.json(
-        { auteur, message: "Your author has been created" },
-        { status: HttpStatusCode.Created }
-      );
-    }
+    const auteur = await Auteur.create(body);
     return NextResponse.json(
-      { message: "Author name is missing" },
-      {
-        status: HttpStatusCode.BadRequest,
-      }
+      { auteur, message: "Your author has been created" },
+      { status: HttpStatusCode.Created }
     );
   } catch (error) {
     return NextResponse.json(
@@ -27,24 +20,12 @@ export async function POST(req) {
     );
   }
 }
-
 export async function GET() {
   try {
     await connectDB();
     const auteurs = await Auteur.find();
-    const nbAuteurs = await Auteur.countDocuments();
-    // return NextResponse.json({
-    //   nbAuteurs,
-    //   auteurs,
-    // });
-    return NextResponse.json(
-
-      auteurs
-    );
-  } catch (e) {
+    return NextResponse.json(auteurs);
+  } catch (error) {
     return NextResponse.json({ error });
   }
 }
-
-
-

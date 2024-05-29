@@ -1,7 +1,7 @@
-import connectDB from "@/lib/connectDB";
-import Auteur from "@/models/Auteur";
 import { HttpStatusCode } from "axios";
+import connectDB from "@/lib/connectDB";
 import { NextResponse } from "next/server";
+import Auteur from "@/app/models/Auteur";
 
 export async function GET(_, { params }) {
   try {
@@ -47,7 +47,6 @@ export async function PUT(req, { params }) {
     );
   }
 }
-
 export async function DELETE(_, { params }) {
   try {
     await connectDB();
@@ -55,12 +54,10 @@ export async function DELETE(_, { params }) {
     if (auteur) {
       await Auteur.findByIdAndDelete(auteur._id);
       return NextResponse.json({
-        message: `Auteur ${params.id} has been
-        
+        message: `Auteur ${params.id} has been 
         deleted`,
       });
     }
-
     return NextResponse.json(
       { message: `Auteur ${params.id} not found` },
       {

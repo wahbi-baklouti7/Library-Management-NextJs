@@ -1,8 +1,28 @@
-import Livre from "@/models/Livre";
-import connectDB from "@/lib/connectDB";
 import { HttpStatusCode } from "axios";
+import connectDB from "@/lib/connectDB";
 import { NextResponse } from "next/server";
-
+import Livre from "@/app/models/Livre";
+export async function GET(_, { params }) {
+  try {
+    await connectDB();
+    const livre = await Livre.findById(params.id)
+      .populate("auteurs")
+      .populate("specialite")
+      .populate("maised");
+    if (livre) {
+      return NextResponse.json(livre);
+    }
+    return NextResponse.json(
+      { message: `Livre ${params.id} not found` },
+      { status: HttpStatusCode.NotFound }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { message: error },
+      { status: HttpStatusCode.BadRequest }
+    );
+  }
+}
 export async function PUT(req, { params }) {
   try {
     await connectDB();
@@ -50,13 +70,23 @@ export async function PUT(req, { params }) {
     );
   }
 }
-
 export async function DELETE(_, { params }) {
   try {
-    await Livre.findByIdAndDelete(params.id);
-    return NextResponse.json({
-      message: `Book ${params.id} has been deleted`,
-    });
+    await connectDB();
+    const livre = await Livre.findById(params.id);
+    if (livre) {
+      await Livre.findByIdAndDelete(livre._id);
+      return NextResponse.json({
+        message: `Book ${params.id} has been 
+        deleted`,
+      });
+    }
+    return NextResponse.json(
+      { message: `Book ${params.id} not found` },
+      {
+        status: HttpStatusCode.NotFound,
+      }
+    );
   } catch (error) {
     return NextResponse.json(
       { message: error },
